@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: .fromSeed(
           seedColor: Colors.grey.shade200,
-          primary: Color(0xfffef7ff),
+          primary: Color(0xffffab69),
           secondary: Color(0xffb21029),
         ),
+        primaryColor: Color(0xffffab69),
         scaffoldBackgroundColor: Color(0xfffef7ff),
         //Colors.grey[200],
         fontFamily: 'Lato',
@@ -72,9 +73,8 @@ class Home extends StatelessWidget {
           mainAxisAlignment: .start,
           crossAxisAlignment: .start,
           children: [
-            Text('Olá,', textAlign: TextAlign.left),
             Text(
-              'Bem Vindo Usuário',
+              'Bem vindo, Usuário',
               style: TextStyle(
                 fontSize: 25,
                 color: Colors.black87,
@@ -83,11 +83,8 @@ class Home extends StatelessWidget {
             ),
             TextField(
               decoration: InputDecoration(
-                hint: Text(
-                  'Buscar pratos ou bebidas',
-                  style: TextStyle(fontSize: 18),
-                ),
-                hintStyle: TextStyle(fontSize: 22),
+                hint: Text('Buscar pratos ou bebidas'),
+                hintStyle: TextStyle(fontSize: 12),
                 prefixIcon: Icon(Icons.search),
                 // contentPadding: EdgeInsets.symmetric(vertical: 16),
                 border: OutlineInputBorder(
@@ -101,7 +98,7 @@ class Home extends StatelessWidget {
                 fillColor: Colors.grey.shade200,
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 8),
             Row(
               mainAxisAlignment: .spaceBetween,
               children: [

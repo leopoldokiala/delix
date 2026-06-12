@@ -24,7 +24,7 @@ final dummyData = [
     description: 'A melhor Coca-Cola de sempre.',
     price: 4000,
     imageUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ43-THA2jUbBLyZRZjv_bf1GJHw4vAHqRhvc0mDOn1xg&s',
+        'https://thumbs.dreamstime.com/b/uma-lata-de-lat%C3%A3o-coca-fresca-com-pano-fundo-parede-tijolos-empresa-cocacola-%C3%A9-marca-mais-popular-do-mundo-207487293.jpg',
     category: 'Refrigerantes',
   ),
   Product(
@@ -32,7 +32,8 @@ final dummyData = [
     title: 'Tequila Ouro',
     description: 'Tequila Ouro Jose Cuervo 750.',
     price: 8500,
-    imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd',
+    imageUrl:
+        'https://images.tcdn.com.br/img/img_prod/1303599/tequila_jose_cuervo_especial_gold_750_ml_71_2_32f600077f21797ba6eaa38045e306bb.jpg',
     category: 'Refrigerantes',
   ),
 ];
