@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './components/categories_button.dart';
+import './components/app_Drawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xfffef7ff),
+          backgroundColor: Colors.white,
           centerTitle: true,
         ),
         colorScheme: .fromSeed(
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
           primary: Color(0xfffef7ff),
           secondary: Color(0xffb21029),
         ),
-        scaffoldBackgroundColor: Colors.grey[200],
+        scaffoldBackgroundColor: Color(0xfffef7ff),
+        //Colors.grey[200],
         fontFamily: 'Lato',
       ),
       home: Home(),
@@ -35,6 +38,79 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text('Cardápio Online')));
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        title: Text(
+          'Cardápio Online',
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.more_vert,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.shopping_cart,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+        ],
+      ),
+      drawer: AppDrawer(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: .start,
+          crossAxisAlignment: .start,
+          children: [
+            Text('Olá,', textAlign: TextAlign.left),
+            Text(
+              'Bem Vindo Usuário',
+              style: TextStyle(
+                fontSize: 25,
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hint: Text(
+                  'Buscar pratos ou bebidas',
+                  style: TextStyle(fontSize: 18),
+                ),
+                hintStyle: TextStyle(fontSize: 22),
+                prefixIcon: Icon(Icons.search),
+                contentPadding: EdgeInsets.symmetric(vertical: 16),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent),
+                ),
+                filled: true,
+                fillColor: Colors.grey.shade200,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: .spaceBetween,
+              children: [
+                CategoriesButton('Todos'),
+                CategoriesButton('Alimentos'),
+                CategoriesButton('Refrigerantes'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
