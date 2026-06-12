@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './components/categories_button.dart';
-import './components/app_Drawer.dart';
+import 'components/app_drawer.dart';
+import './components/product_grid.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         ),
         colorScheme: .fromSeed(
-          seedColor: Colors.white70,
+          seedColor: Colors.grey.shade200,
           primary: Color(0xfffef7ff),
           secondary: Color(0xffb21029),
         ),
@@ -88,7 +89,7 @@ class Home extends StatelessWidget {
                 ),
                 hintStyle: TextStyle(fontSize: 22),
                 prefixIcon: Icon(Icons.search),
-                contentPadding: EdgeInsets.symmetric(vertical: 16),
+                // contentPadding: EdgeInsets.symmetric(vertical: 16),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide(),
@@ -100,6 +101,7 @@ class Home extends StatelessWidget {
                 fillColor: Colors.grey.shade200,
               ),
             ),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: .spaceBetween,
               children: [
@@ -108,6 +110,7 @@ class Home extends StatelessWidget {
                 CategoriesButton('Refrigerantes'),
               ],
             ),
+            Expanded(child: ProductGrid()),
           ],
         ),
       ),

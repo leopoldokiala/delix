@@ -1,6 +1,8 @@
-class Product {
+import 'package:flutter/material.dart';
+
+class Product extends ChangeNotifier {
   final String id;
-  final String name;
+  final String title;
   final String description;
   final double price;
   final String imageUrl;
@@ -9,7 +11,7 @@ class Product {
 
   Product({
     required this.id,
-    required this.name,
+    required this.title,
     required this.description,
     required this.price,
     required this.imageUrl,

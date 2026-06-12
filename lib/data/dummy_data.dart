@@ -3,7 +3,7 @@ import '../models/product.dart';
 final dummyData = [
   Product(
     id: 'p1',
-    name: 'Hambúrguer Especial',
+    title: 'Hambúrguer Especial',
     description: 'Hambúrguer artesanal com queijo e bacon.',
     price: 3500,
     imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd',
@@ -11,7 +11,7 @@ final dummyData = [
   ),
   Product(
     id: 'p2',
-    name: 'Salada de Escarola',
+    title: 'Salada de Escarola',
     description: 'Salada de Escarola com Bacon e Molho de Mostarda.',
     price: 5500,
     imageUrl:
@@ -20,7 +20,7 @@ final dummyData = [
   ),
   Product(
     id: 'p3',
-    name: 'Coca-Cola',
+    title: 'Coca-Cola',
     description: 'A melhor Coca-Cola de sempre.',
     price: 4000,
     imageUrl:
@@ -29,7 +29,7 @@ final dummyData = [
   ),
   Product(
     id: 'p4',
-    name: 'Tequila Ouro',
+    title: 'Tequila Ouro',
     description: 'Tequila Ouro Jose Cuervo 750.',
     price: 8500,
     imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd',
