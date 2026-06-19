@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/product.dart';
 
 class ProductItem extends StatelessWidget {
-  final Product product;
-  const ProductItem(this.product, {super.key});
+  const ProductItem({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Product product = Provider.of<Product>(context);
     return Card(
       child: Column(
         children: [
@@ -49,6 +50,7 @@ class ProductItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).colorScheme.secondary,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 Stack(

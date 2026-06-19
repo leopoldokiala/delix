@@ -18,4 +18,9 @@ class Product extends ChangeNotifier {
     required this.category,
     this.isFavorite = false,
   });
+
+  void toggleFavorite() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 }
