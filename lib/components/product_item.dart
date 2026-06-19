@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/product.dart';
+import '../providers/products.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
@@ -23,7 +24,34 @@ class ProductItem extends StatelessWidget {
                   SizedBox(
                     height: 130,
                     width: double.infinity,
-                    child: Image.network(product.imageUrl, fit: BoxFit.cover),
+                    child: Stack(
+                      children: [
+                        Image.network(product.imageUrl, fit: BoxFit.cover),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.black38,
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                product.toggleFavorite();
+                              },
+                              icon: Icon(
+                                product.isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Color(0xffb21029),
+                                size: 35,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
