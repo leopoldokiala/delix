@@ -4,7 +4,7 @@ import 'components/app_drawer.dart';
 import './components/product_grid.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +47,10 @@ class Home extends StatelessWidget {
         ),
         title: Text(
           'Cardápio Online',
-          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 24,
+          ),
         ),
         actions: [
           IconButton(
@@ -110,6 +113,24 @@ class Home extends StatelessWidget {
             Expanded(child: ProductGrid()),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        elevation: 5,
+        selectedItemColor: Colors.brown,
+        unselectedItemColor: Colors.black,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'início'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Pedidos'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favoritos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Carrinho',
+          ),
+        ],
       ),
     );
   }

@@ -17,10 +17,14 @@ class ProductItem extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
               ),
-              child: SizedBox(
-                height: 130,
-                width: double.infinity,
-                child: Image.network(product.imageUrl, fit: BoxFit.cover),
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 130,
+                    width: double.infinity,
+                    child: Image.network(product.imageUrl, fit: BoxFit.cover),
+                  ),
+                ],
               ),
             ),
           ),
@@ -59,7 +63,7 @@ class ProductItem extends StatelessWidget {
                           // borderRadius: BorderRadius.circular(16),
                           border: Border.all(),
                         ),
-                        child: Icon(Icons.add, color: Colors.brown),
+                        child: Icon(Icons.add, color: Colors.brown, size: 20),
                       ),
                     ),
                   ],
