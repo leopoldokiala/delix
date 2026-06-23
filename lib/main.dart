@@ -2,6 +2,9 @@ import 'package:cardapio_online/providers/products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './screens/home_screen.dart';
+import './screens/cart_screen.dart';
+import 'screens/order_screen.dart';
+import './utils/app_route.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,6 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(color: Color(0xffb21029)),
             backgroundColor: Colors.white,
             centerTitle: true,
             titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -33,7 +37,12 @@ class MyApp extends StatelessWidget {
           //Colors.grey[200],
           fontFamily: 'Lato',
         ),
-        home: Home(),
+        home: HomeScreen(),
+        routes: {
+          AppRoute.home: (context) => HomeScreen(),
+          AppRoute.cart: (context) => CartScreen(),
+          AppRoute.orders: (context) => OrderScreen(),
+        },
       ),
     );
   }

@@ -80,41 +80,40 @@ class ProductItem extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: .spaceEvenly,
-              crossAxisAlignment: .start,
-              children: [
-                Text(
-                  'R\$ ${product.price.toString()}',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontWeight: FontWeight.bold,
-                  ),
+          Row(
+            mainAxisAlignment: .spaceEvenly,
+            crossAxisAlignment: .start,
+            children: [
+              Text(
+                'R\$ ${product.price.toString()}',
+                textAlign: TextAlign.start,
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
                 ),
-                Stack(
-                  // alignment: Alignment.centerRight,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          shape: BoxShape.circle,
+              ),
+              Stack(
+                // alignment: Alignment.centerRight,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        shape: BoxShape.circle,
 
-                          // borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Icon(Icons.add, color: Colors.brown, size: 20),
+                        // borderRadius: BorderRadius.circular(16),
                       ),
+                      child: Icon(Icons.add, color: Colors.brown, size: 20),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

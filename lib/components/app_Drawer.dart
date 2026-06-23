@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/app_route.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -22,19 +23,25 @@ class AppDrawer extends StatelessWidget {
             Text('leopoldo@gmail.com', style: TextStyle(fontSize: 16)),
             Divider(),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(AppRoute.home);
+              },
               leading: Icon(Icons.shop),
               title: Text('Loja', style: TextStyle(fontSize: 18)),
             ),
             Divider(),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(AppRoute.cart);
+              },
               leading: Icon(Icons.shopping_cart),
               title: Text('Carrinho', style: TextStyle(fontSize: 18)),
             ),
             Divider(),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(AppRoute.orders);
+              },
               leading: Icon(Icons.list),
               title: Text('Pedidos', style: TextStyle(fontSize: 18)),
             ),
