@@ -127,14 +127,14 @@ class Home extends StatelessWidget {
         unselectedItemColor: Colors.black,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'início'),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Pedidos'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favoritos',
+            icon: Icon(Icons.list),
+            label: 'Meus Pedidos',
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            label: 'Carrinho',
+            label: 'Meu Carrinho',
           ),
         ],
       ),

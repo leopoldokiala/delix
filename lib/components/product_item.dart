@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/product.dart';
-import '../providers/products.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
@@ -22,16 +21,21 @@ class ProductItem extends StatelessWidget {
               child: Stack(
                 children: [
                   SizedBox(
-                    height: 130,
+                    height: 135,
                     width: double.infinity,
                     child: Stack(
                       children: [
-                        Image.network(product.imageUrl, fit: BoxFit.cover),
+                        Positioned.fill(
+                          child: Image.network(
+                            product.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                         Align(
                           alignment: Alignment.topRight,
                           child: Container(
-                            height: 60,
-                            width: 60,
+                            height: 45,
+                            width: 45,
                             decoration: BoxDecoration(
                               color: Colors.black38,
                               shape: BoxShape.rectangle,
@@ -57,20 +61,29 @@ class ProductItem extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            product.title,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            overflow: TextOverflow.ellipsis,
-          ),
-          Text(
-            product.description,
-            style: TextStyle(fontSize: 13),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                Text(
+                  product.title,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  product.description,
+                  style: TextStyle(fontSize: 13),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
           ),
           Expanded(
             child: Row(
               mainAxisAlignment: .spaceEvenly,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   'R\$ ${product.price.toString()}',
@@ -82,16 +95,18 @@ class ProductItem extends StatelessWidget {
                   ),
                 ),
                 Stack(
+                  // alignment: Alignment.centerRight,
                   children: [
                     GestureDetector(
                       onTap: () {},
                       child: Container(
                         width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           shape: BoxShape.circle,
+
                           // borderRadius: BorderRadius.circular(16),
-                          border: Border.all(),
                         ),
                         child: Icon(Icons.add, color: Colors.brown, size: 20),
                       ),
