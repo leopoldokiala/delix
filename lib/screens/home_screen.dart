@@ -1,14 +1,17 @@
-import 'package:cardapio_online/providers/products.dart';
+import 'package:cardapio_online/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../components/app_Drawer.dart';
 import '../components/categories_button.dart';
 import '../components/product_grid.dart';
-import '../utils/app_route.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +34,13 @@ class HomeScreen extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(AppRoute.cart);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return CartScreen();
+                  },
+                ),
+              );
             },
             icon: Icon(
               Icons.shopping_cart,
@@ -84,21 +93,6 @@ class HomeScreen extends StatelessWidget {
             Expanded(child: ProductGrid()),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        elevation: 5,
-        selectedItemColor: Colors.brown,
-        unselectedItemColor: Colors.black,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'início'),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Pedidos'),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Carrinho',
-          ),
-        ],
       ),
     );
   }

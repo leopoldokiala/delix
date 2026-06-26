@@ -14,7 +14,10 @@ class AppDrawer extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: CircleAvatar(maxRadius: 60),
+              child: CircleAvatar(
+                maxRadius: 60,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+              ),
             ),
             Text(
               'Leopoldo Kiala',
