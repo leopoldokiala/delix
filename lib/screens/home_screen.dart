@@ -1,7 +1,10 @@
+import 'package:cardapio_online/providers/products.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../components/app_Drawer.dart';
 import '../components/categories_button.dart';
 import '../components/product_grid.dart';
+import '../utils/app_route.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -27,7 +30,9 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRoute.cart);
+            },
             icon: Icon(
               Icons.shopping_cart,
               color: Theme.of(context).colorScheme.secondary,

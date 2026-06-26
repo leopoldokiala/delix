@@ -6,6 +6,7 @@ import './screens/cart_screen.dart';
 import 'screens/order_screen.dart';
 import 'screens/product_detail_screen.dart';
 import './utils/app_route.dart';
+import './providers/cart.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => Products())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => Products()),
+        ChangeNotifierProvider(create: (_) => Cart()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
