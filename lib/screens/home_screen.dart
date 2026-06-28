@@ -1,5 +1,7 @@
+import 'package:cardapio_online/providers/products.dart';
 import 'package:cardapio_online/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../components/app_Drawer.dart';
 import '../components/categories_button.dart';
 import '../components/product_grid.dart';
@@ -15,8 +17,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _showFavoriteOnly = false;
+  String _selectedCategory = 'Todos';
   @override
   Widget build(BuildContext context) {
+    final products = Provider.of<Products>(context);
+    final filteredProducts = _selectedCategory == 'Todos'
+        ? products.items
+        : products.items
+              .where((prod) => prod.category == _selectedCategory)
+              .toList();
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).appBarTheme.iconTheme,
@@ -104,12 +113,36 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: .spaceBetween,
               children: [
-                CategoriesButton('Todos'),
-                CategoriesButton('Alimentos'),
-                CategoriesButton('Refrigerantes'),
+                CategoriesButton(
+                  'Todos',
+                  isSelected: _selectedCategory == 'Todos',
+                  (category) {
+                    setState(() {
+                      _selectedCategory = category;
+                    });
+                  },
+                ),
+                CategoriesButton(
+                  'Alimentos',
+                  isSelected: _selectedCategory == 'Alimentos',
+                  (category) {
+                    setState(() {
+                      _selectedCategory = category;
+                    });
+                  },
+                ),
+                CategoriesButton(
+                  'Refrigerantes',
+                  isSelected: _selectedCategory == 'Refrigerantes',
+                  (category) {
+                    setState(() {
+                      _selectedCategory = category;
+                    });
+                  },
+                ),
               ],
             ),
-            Expanded(child: ProductGrid(_showFavoriteOnly)),
+            Expanded(child: ProductGrid(_showFavoriteOnly, filteredProducts)),
           ],
         ),
       ),
