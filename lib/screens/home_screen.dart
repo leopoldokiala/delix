@@ -4,6 +4,8 @@ import '../components/app_Drawer.dart';
 import '../components/categories_button.dart';
 import '../components/product_grid.dart';
 
+enum FilterOptions { all, favorite }
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -12,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _showFavoriteOnly = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,13 +28,29 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.more_vert,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+          PopupMenuButton<FilterOptions>(
+            onSelected: (FilterOptions selectedValue) {
+              debugPrint('Valor: $selectedValue');
+              if (selectedValue == FilterOptions.favorite) {
+                setState(() {
+                  _showFavoriteOnly = true;
+                });
+              } else {
+                setState(() {
+                  _showFavoriteOnly = false;
+                });
+              }
+            },
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: FilterOptions.favorite,
+                child: Text('Somente Favoritos'),
+              ),
+              PopupMenuItem(value: FilterOptions.all, child: Text('Todos')),
+            ],
           ),
+
           IconButton(
             onPressed: () {
               Navigator.of(context).push(
@@ -90,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 CategoriesButton('Refrigerantes'),
               ],
             ),
-            Expanded(child: ProductGrid()),
+            Expanded(child: ProductGrid(_showFavoriteOnly)),
           ],
         ),
       ),

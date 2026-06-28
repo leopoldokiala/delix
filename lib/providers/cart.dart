@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../models/product.dart';
+import '../providers/products.dart';
 
 class Cart extends ChangeNotifier {
   final List<Product> _items = [];
