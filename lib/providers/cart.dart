@@ -1,18 +1,48 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../providers/product.dart';
 
-class Cart extends ChangeNotifier {
-  final List<Product> _items = [];
+class CartItem {
+  final String id;
+  final String title;
+  final int quantity;
+  final double price;
 
-  List<Product> get items => _items;
+  CartItem({
+    required this.id,
+    required this.title,
+    required this.quantity,
+    required this.price,
+  });
+}
+
+class Cart extends ChangeNotifier {
+  final Map<String, CartItem> _items = {};
+
+  Map<String, CartItem> get items => {..._items};
 
   void addItem(Product product) {
-    _items.add(product);
-    notifyListeners();
-  }
-
-  void removeItem(Product product) {
-    _items.remove(product);
+    if (_items.containsKey(product.id)) {
+      _items.update(product.id, (existingItem) {
+        return CartItem(
+          id: existingItem.id,
+          title: existingItem.title,
+          quantity: existingItem.quantity + 1,
+          price: existingItem.price,
+        );
+      });
+    } else {
+      _items.putIfAbsent(
+        product.id,
+        () => CartItem(
+          id: Random().nextDouble().toString(),
+          title: product.title,
+          price: product.price,
+          quantity: 1,
+        ),
+      );
+    }
     notifyListeners();
   }
 }
