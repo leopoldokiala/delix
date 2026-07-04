@@ -1,4 +1,4 @@
-# cardapio_online
+# deliux
 
 A new Flutter project.
 

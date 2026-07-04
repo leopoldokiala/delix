@@ -1,5 +1,5 @@
-import 'package:cardapio_online/providers/products.dart';
-import 'package:cardapio_online/screens/cart_screen.dart';
+import 'package:delix/providers/products.dart';
+import 'package:delix/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/app_Drawer.dart';
