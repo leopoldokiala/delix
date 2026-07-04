@@ -1,4 +1,4 @@
-# deliux
+# delix
 
 A new Flutter project.
 
