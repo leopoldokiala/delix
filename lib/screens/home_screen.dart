@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         iconTheme: Theme.of(context).appBarTheme.iconTheme,
         title: Text(
-          'Cardápio Online',
+          'Delix',
           style: TextStyle(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 24,
