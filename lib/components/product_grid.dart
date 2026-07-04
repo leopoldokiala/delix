@@ -1,5 +1,4 @@
 import '../providers/product.dart';
-import '../providers/products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/product_item.dart';

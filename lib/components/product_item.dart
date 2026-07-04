@@ -8,7 +8,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Product product = Provider.of<Product>(context);
+    final Product product = Provider.of<Product>(context, listen: false);
     return Card(
       child: Column(
         children: [
@@ -52,12 +52,14 @@ class ProductItem extends StatelessWidget {
                               onPressed: () {
                                 product.toggleFavorite();
                               },
-                              icon: Icon(
-                                product.isFavorite
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: Color(0xffb21029),
-                                size: 35,
+                              icon: Consumer<Product>(
+                                builder: (context, product, _) => Icon(
+                                  product.isFavorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Color(0xffb21029),
+                                  size: 35,
+                                ),
                               ),
                             ),
                           ),

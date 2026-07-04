@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../components/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -17,7 +16,6 @@ class CartScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: CartItem(),
     );
   }
 }
