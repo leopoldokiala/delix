@@ -1,6 +1,8 @@
+import '../providers/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/product.dart';
+
 import '../utils/app_route.dart';
 
 class ProductItem extends StatelessWidget {
@@ -9,6 +11,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Product product = Provider.of<Product>(context, listen: false);
+    final Cart cart = Provider.of<Cart>(context, listen: false);
     return Card(
       child: Column(
         children: [
@@ -110,7 +113,10 @@ class ProductItem extends StatelessWidget {
                     IconButton(
                       padding:
                           EdgeInsets.zero, // remove padding extra do IconButton
-                      onPressed: () {},
+                      onPressed: () {
+                        cart.addItem(product);
+                        print('Cart: ${cart.itemCount}');
+                      },
                       icon: Icon(
                         Icons.shopping_cart,
                         color: Theme.of(context).colorScheme.secondary,

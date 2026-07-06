@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../components/app_Drawer.dart';
 import '../components/categories_button.dart';
 import '../components/product_grid.dart';
+import '../providers/cart.dart';
 
 enum FilterOptions { all, favorite }
 
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         : products.items
               .where((prod) => prod.category == _selectedCategory)
               .toList();
+    final Cart cart = Provider.of<Cart>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).appBarTheme.iconTheme,
@@ -70,10 +72,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             },
-            icon: Icon(
-              Icons.shopping_cart,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+            icon: cart.itemCount > 0
+                ? Badge.count(
+                    count: cart.itemCount,
+                    textColor: Colors.white,
+
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  )
+                : Icon(
+                    Icons.shopping_cart,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
           ),
         ],
       ),

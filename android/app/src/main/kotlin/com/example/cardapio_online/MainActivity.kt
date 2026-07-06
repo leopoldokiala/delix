@@ -1,4 +1,4 @@
-package com.example.cardapio_online
+package com.example.delix
 
 import io.flutter.embedding.android.FlutterActivity
 
