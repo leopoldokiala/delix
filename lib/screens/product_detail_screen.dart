@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart.dart';
 import '../providers/product.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -75,7 +77,9 @@ class ProductDetailScreen extends StatelessWidget {
                     Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<Cart>(context, listen: false).addItem(product);
+                },
                 child: Text(
                   'Adicionar ao Carrinho',
                   style: TextStyle(
