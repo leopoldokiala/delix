@@ -1,5 +1,4 @@
 import 'package:delix/providers/products.dart';
-import 'package:delix/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/app_Drawer.dart';
@@ -64,17 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return CartScreen();
-                  },
-                ),
-              );
+              Navigator.of(context).pushNamed('/cart', arguments: products);
             },
-            icon: cart.itemCount > 0
+            icon: cart.itemsCount > 0
                 ? Badge.count(
-                    count: cart.itemCount,
+                    count: cart.itemsCount,
                     textColor: Colors.white,
 
                     child: Icon(

@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import '../providers/product.dart';
 
@@ -7,12 +6,14 @@ class CartItem {
   final String title;
   final int quantity;
   final double price;
+  final String imageUrl;
 
   CartItem({
     required this.id,
     required this.title,
     required this.quantity,
     required this.price,
+    required this.imageUrl,
   });
 }
 
@@ -23,7 +24,7 @@ class Cart extends ChangeNotifier {
     return {..._items};
   }
 
-  int get itemCount {
+  int get itemsCount {
     return _items.length;
   }
 
@@ -44,16 +45,18 @@ class Cart extends ChangeNotifier {
           title: existingItem.title,
           quantity: existingItem.quantity + 1,
           price: existingItem.price,
+          imageUrl: existingItem.imageUrl,
         );
       });
     } else {
       _items.putIfAbsent(
         product.id,
         () => CartItem(
-          id: Random().nextDouble().toString(),
+          id: product.id,
           title: product.title,
           price: product.price,
           quantity: 1,
+          imageUrl: product.imageUrl,
         ),
       );
     }

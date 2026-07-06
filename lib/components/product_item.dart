@@ -2,7 +2,6 @@ import '../providers/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/product.dart';
-
 import '../utils/app_route.dart';
 
 class ProductItem extends StatelessWidget {
@@ -115,7 +114,6 @@ class ProductItem extends StatelessWidget {
                           EdgeInsets.zero, // remove padding extra do IconButton
                       onPressed: () {
                         cart.addItem(product);
-                        print('Cart: ${cart.itemCount}');
                       },
                       icon: Icon(
                         Icons.shopping_cart,
