@@ -9,7 +9,7 @@ class CartItemComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Cart cart = Provider.of<Cart>(context);
-    //final Cart _quantityItem = Provider.of<Cart>(context);
+
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
       child: Padding(
@@ -46,6 +46,8 @@ class CartItemComponent extends StatelessWidget {
                   icon: const Icon(Icons.add, size: 25),
                   onPressed: () {
                     // lógica para aumentar quantidade
+
+                    cart.itemsCount + 1;
                   },
                 ),
                 Text(
@@ -57,9 +59,7 @@ class CartItemComponent extends StatelessWidget {
                 ),
                 IconButton(
                   icon: const Icon(Icons.remove, size: 25),
-                  onPressed: () {
-                    cart.itemsCount;
-                  },
+                  onPressed: () {},
                 ),
                 const SizedBox(width: 12),
                 TextButton.icon(

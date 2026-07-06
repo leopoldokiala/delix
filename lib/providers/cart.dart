@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../providers/product.dart';
 
 class CartItem {
   final String id;
+  final String productId;
   final String title;
   final int quantity;
   final double price;
@@ -10,6 +13,7 @@ class CartItem {
 
   CartItem({
     required this.id,
+    required this.productId,
     required this.title,
     required this.quantity,
     required this.price,
@@ -42,6 +46,7 @@ class Cart extends ChangeNotifier {
       _items.update(product.id, (existingItem) {
         return CartItem(
           id: existingItem.id,
+          productId: product.id,
           title: existingItem.title,
           quantity: existingItem.quantity + 1,
           price: existingItem.price,
@@ -52,7 +57,8 @@ class Cart extends ChangeNotifier {
       _items.putIfAbsent(
         product.id,
         () => CartItem(
-          id: product.id,
+          id: Random().nextDouble().toString(),
+          productId: product.id,
           title: product.title,
           price: product.price,
           quantity: 1,
@@ -60,6 +66,11 @@ class Cart extends ChangeNotifier {
         ),
       );
     }
+    notifyListeners();
+  }
+
+  void removeItem(String productId) {
+    _items.remove(productId);
     notifyListeners();
   }
 }
