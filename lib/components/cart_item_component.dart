@@ -8,8 +8,6 @@ class CartItemComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Cart cart = Provider.of<Cart>(context);
-
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
       child: Padding(
@@ -42,29 +40,13 @@ class CartItemComponent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.add, size: 25),
-                  onPressed: () {
-                    // lógica para aumentar quantidade
-
-                    cart.itemsCount + 1;
-                  },
-                ),
-                Text(
-                  '${cartItem.quantity}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, size: 25),
-                  onPressed: () {},
-                ),
                 const SizedBox(width: 12),
                 TextButton.icon(
                   onPressed: () {
-                    // lógica para remover item
+                    Provider.of<Cart>(
+                      context,
+                      listen: false,
+                    ).removeItem(cartItem.productId);
                   },
                   icon: Icon(
                     Icons.delete,
