@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import './cart.dart';
@@ -21,5 +23,18 @@ class Orders with ChangeNotifier {
 
   List<Order> get orders {
     return [..._orders];
+  }
+
+  void addOrder(List<CartItem> products, double total) {
+    _orders.insert(
+      0,
+      Order(
+        id: Random().nextDouble().toString(),
+        total: total,
+        products: products,
+        date: DateTime.now(),
+      ),
+    );
+    notifyListeners();
   }
 }
