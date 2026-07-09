@@ -51,7 +51,7 @@ class ProductDetailScreen extends StatelessWidget {
                       style: TextStyle(color: Colors.black54, fontSize: 18),
                     ),
                     Text(
-                      'R\$ ${product.price.toStringAsFixed(2)}',
+                      '${product.price.toStringAsFixed(2)} kz',
                       style: TextStyle(
                         fontSize: 30,
                         color: Theme.of(context).colorScheme.secondary,

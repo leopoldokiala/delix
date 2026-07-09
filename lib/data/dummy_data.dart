@@ -5,7 +5,7 @@ final dummyData = [
     id: 'p1',
     title: 'Hambúrguer Especial',
     description: 'Hambúrguer artesanal com queijo e bacon.',
-    price: 52.90,
+    price: 6500.00, // AOA
     imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd',
     category: 'Alimentos',
   ),
@@ -13,7 +13,7 @@ final dummyData = [
     id: 'p2',
     title: 'Salada de Escarola',
     description: 'Salada de Escarola com Bacon e Molho de Mostarda.',
-    price: 18.00,
+    price: 5339.00, // AOA
     imageUrl:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2NTdyoN8TYRYog-UhfEDi6inLA_-pE9KkwQ&s',
     category: 'Alimentos',
@@ -22,7 +22,7 @@ final dummyData = [
     id: 'p3',
     title: 'Coca-Cola',
     description: 'A melhor Coca-Cola de sempre.',
-    price: 6.50,
+    price: 1169.00, // AOA
     imageUrl:
         'https://thumbs.dreamstime.com/b/uma-lata-de-lat%C3%A3o-coca-fresca-com-pano-fundo-parede-tijolos-empresa-cocacola-%C3%A9-marca-mais-popular-do-mundo-207487293.jpg',
     category: 'Refrigerantes',
@@ -31,7 +31,7 @@ final dummyData = [
     id: 'p4',
     title: 'Tequila Ouro',
     description: 'Tequila Ouro Jose Cuervo 750.',
-    price: 134.00,
+    price: 32000.00, // AOA
     imageUrl:
         'https://images.tcdn.com.br/img/img_prod/1303599/tequila_jose_cuervo_especial_gold_750_ml_71_2_32f600077f21797ba6eaa38045e306bb.jpg',
     category: 'Refrigerantes',

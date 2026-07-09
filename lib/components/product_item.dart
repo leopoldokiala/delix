@@ -99,14 +99,17 @@ class ProductItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'R\$ ${product.price.toStringAsFixed(2)}',
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: Text(
+                        '${product.price.toStringAsFixed(2)} kz',
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     IconButton(
