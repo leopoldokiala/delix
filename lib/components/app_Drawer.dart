@@ -33,13 +33,6 @@ class AppDrawer extends StatelessWidget {
               title: Text('Loja', style: TextStyle(fontSize: 18)),
             ),
 
-            ListTile(
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(AppRoute.cart);
-              },
-              leading: Icon(Icons.shopping_cart),
-              title: Text('Carrinho', style: TextStyle(fontSize: 18)),
-            ),
             Divider(),
             ListTile(
               onTap: () {
