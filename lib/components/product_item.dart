@@ -1,3 +1,5 @@
+import 'package:delix/utils/currency_formatter.dart';
+
 import '../providers/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -101,7 +103,7 @@ class ProductItem extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        '${product.price.toStringAsFixed(2)} kz',
+                        '${CurrencyFormatter.formatPrice(product.price)} kz',
                         textAlign: TextAlign.start,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

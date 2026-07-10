@@ -1,3 +1,4 @@
+import 'package:delix/utils/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/cartItem.dart';
@@ -30,7 +31,7 @@ class CartItemComponent extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                'Total: R\$ ${cartItem.price.toString()}',
+                'Total: ${CurrencyFormatter.formatPrice(cartItem.price)} kz',
                 style: TextStyle(fontSize: 16),
               ),
               trailing: Text(

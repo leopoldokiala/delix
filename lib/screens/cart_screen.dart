@@ -1,3 +1,4 @@
+import 'package:delix/utils/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart.dart';
@@ -37,7 +38,7 @@ class CartScreen extends StatelessWidget {
                   Chip(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     label: Text(
-                      'R\$ ${cart.totalAmount.toStringAsFixed(2)}',
+                      '${CurrencyFormatter.formatPrice(cart.totalAmount)} kz',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),

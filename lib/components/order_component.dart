@@ -1,3 +1,4 @@
+import 'package:delix/utils/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/order.dart';
@@ -33,7 +34,7 @@ class _OrderComponentState extends State<OrderComponent> {
                 ),
                 Text(
                   overflow: TextOverflow.ellipsis,
-                  '${widget.order.total.toString()} Kz',
+                  '${CurrencyFormatter.formatPrice(widget.order.total)} Kz',
                   style: TextStyle(fontWeight: .bold, fontSize: 18),
                 ),
               ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart.dart';
 import '../models/product.dart';
+import '../utils/currency_formatter.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
@@ -51,7 +52,7 @@ class ProductDetailScreen extends StatelessWidget {
                       style: TextStyle(color: Colors.black54, fontSize: 18),
                     ),
                     Text(
-                      '${product.price.toStringAsFixed(2)} kz',
+                      '${CurrencyFormatter.formatPrice(product.price)} kz',
                       style: TextStyle(
                         fontSize: 30,
                         color: Theme.of(context).colorScheme.secondary,

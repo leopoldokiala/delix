@@ -98,8 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             TextField(
+              cursorColor: Theme.of(context).colorScheme.secondary,
               decoration: InputDecoration(
-                hint: Text('Buscar pratos ou bebidas'),
+                hint: Text('Buscar produtos'),
                 hintStyle: TextStyle(fontSize: 12),
                 prefixIcon: Icon(Icons.search),
                 // contentPadding: EdgeInsets.symmetric(vertical: 16),
@@ -118,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 2,
                   ),
                 ),
+
                 filled: true,
                 fillColor: Colors.grey.shade200,
               ),
