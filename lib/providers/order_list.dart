@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/order.dart';
 import './cart.dart';
 
-class Orders with ChangeNotifier {
+class OrderList with ChangeNotifier {
   final List<Order> _items = [];
 
   List<Order> get items {
