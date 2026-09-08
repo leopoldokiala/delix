@@ -43,23 +43,7 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      Provider.of<OrderList>(
-                        context,
-                        listen: false,
-                      ).addOrder(cart);
-
-                      cart.clear();
-                    },
-                    child: Text(
-                      'COMPRAR',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
+                  CartButton(cart: cart),
                 ],
               ),
             ),
@@ -76,5 +60,52 @@ class CartScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class CartButton extends StatefulWidget {
+  final Cart cart;
+  const CartButton({required this.cart, super.key});
+
+  @override
+  State<CartButton> createState() => _CartButtonState();
+}
+
+class _CartButtonState extends State<CartButton> {
+  bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading
+        ? CircularProgressIndicator(
+            color: Theme.of(context).colorScheme.secondary,
+          )
+        : TextButton(
+            onPressed: widget.cart.itemsCount == 0
+                ? null
+                : () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    await Provider.of<OrderList>(
+                      context,
+                      listen: false,
+                    ).addOrder(widget.cart);
+
+                    widget.cart.clear();
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  },
+            child: Text(
+              'COMPRAR',
+              style: TextStyle(
+                fontSize: 16,
+                color: widget.cart.itemsCount == 0
+                    ? Colors.grey
+                    : Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+          );
   }
 }

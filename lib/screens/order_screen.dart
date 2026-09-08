@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/app_Drawer.dart';
-import '../providers/order.dart';
+import '../providers/order_list.dart';
 import '../components/order_component.dart';
 
 class OrderScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class OrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orders = Provider.of<Orders>(context);
+    final orders = Provider.of<OrderList>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).appBarTheme.iconTheme,
