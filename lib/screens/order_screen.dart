@@ -12,25 +12,8 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<OrderList>(context, listen: false).loadOrders().then((_) {
-      setState(() {
-        _isLoading = false;
-      });
-    });
-  }
-
-  Future<void> _refreshOrders() async {
-    await Provider.of<OrderList>(context, listen: false).loadOrders();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final orders = Provider.of<OrderList>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).appBarTheme.iconTheme,
@@ -43,22 +26,35 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
       ),
       drawer: AppDrawer(),
-      body: _isLoading
-          ? Center(
+      body: FutureBuilder(
+        future: Provider.of<OrderList>(context, listen: false).loadOrders(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
               child: CircularProgressIndicator(
                 color: Theme.of(context).colorScheme.secondary,
               ),
-            )
-          : RefreshIndicator(
-              color: Theme.of(context).colorScheme.secondary,
-              onRefresh: () => _refreshOrders(),
-              child: ListView.builder(
-                itemCount: orders.itemCount,
-                itemBuilder: (context, index) {
-                  return OrderComponent(orders.items[index]);
-                },
+            );
+          } else if (snapshot.error != null) {
+            return Center(
+              child: Text(
+                'Erro ao trazer os dados!',
+                style: TextStyle(color: Colors.black),
               ),
-            ),
+            );
+          } else {
+            return Consumer<OrderList>(
+              builder: (context, orders, child) {
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    return OrderComponent(orders.items[index]);
+                  },
+                );
+              },
+            );
+          }
+        },
+      ),
     );
   }
 }
