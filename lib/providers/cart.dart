@@ -32,7 +32,6 @@ class Cart extends ChangeNotifier {
           title: existingItem.title,
           quantity: existingItem.quantity + 1,
           price: existingItem.price,
-          imageUrl: existingItem.imageUrl,
         );
       });
     } else {
@@ -44,7 +43,6 @@ class Cart extends ChangeNotifier {
           title: product.name,
           price: product.price,
           quantity: 1,
-          imageUrl: product.imageUrl,
         ),
       );
     }
@@ -70,7 +68,6 @@ class Cart extends ChangeNotifier {
           title: existingItem.title,
           quantity: existingItem.quantity - 1,
           price: existingItem.price,
-          imageUrl: existingItem.imageUrl,
         );
       });
     }

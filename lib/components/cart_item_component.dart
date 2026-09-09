@@ -17,15 +17,6 @@ class CartItemComponent extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  cartItem.imageUrl,
-                  width: 60,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
               title: Text(
                 cartItem.title,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
