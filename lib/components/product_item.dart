@@ -41,6 +41,7 @@ class ProductItem extends StatelessWidget {
                 icon: Icon(Icons.edit, color: Colors.red.shade600),
               ),
             ),
+
             Expanded(
               child: IconButton(
                 onPressed: () {
@@ -77,12 +78,14 @@ class ProductItem extends StatelessWidget {
                     },
                   ).then((value) async {
                     if (value ?? false) {
+                      if (!context.mounted) return;
                       try {
                         await Provider.of<ProductList>(
                           context,
                           listen: false,
                         ).removeProduct(product);
                       } on HttpException catch (error) {
+                        if (!context.mounted) return;
                         msg.showSnackBar(
                           SnackBar(
                             backgroundColor: Color(0xffb21029),

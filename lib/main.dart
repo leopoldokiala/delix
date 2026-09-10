@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
           AppRoute.cart: (context) => CartScreen(),
           AppRoute.orders: (context) => OrderScreen(),
           AppRoute.detail: (context) => ProductDetailScreen(),
-          AppRoute.products: (context) => ProductsScreens(),
+          AppRoute.products: (context) => ProductsScreen(),
           AppRoute.productForm: (context) => ProductFormScreen(),
         },
       ),

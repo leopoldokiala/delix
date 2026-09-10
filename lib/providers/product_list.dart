@@ -25,9 +25,11 @@ class ProductList with ChangeNotifier {
 
   Future<void> loadProducts() async {
     _items.clear();
+
     final response = await http.get(
       Uri.parse('${Constants.productBaseUrl}.json'),
     );
+
     if (response.body == 'null') return;
     Map<String, dynamic> data = jsonDecode(response.body);
     data.forEach((productId, productData) {
