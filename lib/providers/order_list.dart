@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:delix/models/cartItem.dart';
+import 'package:delix/models/cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/order.dart';
