@@ -5,14 +5,14 @@ import '../providers/product_list.dart';
 import '../components/product_item.dart';
 import '../utils/app_route.dart';
 
-class ProductsScreens extends StatefulWidget {
-  const ProductsScreens({super.key});
+class ProductsScreen extends StatefulWidget {
+  const ProductsScreen({super.key});
 
   @override
-  State<ProductsScreens> createState() => _ProductsScreensState();
+  State<ProductsScreen> createState() => _ProductsScreenState();
 }
 
-class _ProductsScreensState extends State<ProductsScreens> {
+class _ProductsScreenState extends State<ProductsScreen> {
   bool _isLoading = true;
 
   Future<void> _refreshProducts(BuildContext context) async {
@@ -43,19 +43,21 @@ class _ProductsScreensState extends State<ProductsScreens> {
         ],
       ),
       drawer: AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => _refreshProducts(context),
-        color: Theme.of(context).colorScheme.secondary,
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: ListView.builder(
-            itemCount: products.itemsCount,
-            itemBuilder: (context, index) {
-              return ProductItem(products.items[index]);
-            },
-          ),
-        ),
-      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+              onRefresh: () => _refreshProducts(context),
+              color: Theme.of(context).colorScheme.secondary,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  itemCount: products.itemsCount,
+                  itemBuilder: (context, index) {
+                    return ProductItem(products.items[index]);
+                  },
+                ),
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed(AppRoute.productForm);
