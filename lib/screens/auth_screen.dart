@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/auth_form.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -17,7 +18,7 @@ class AuthScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Column(
               mainAxisAlignment: .center,
@@ -32,6 +33,7 @@ class AuthScreen extends StatelessWidget {
                     fontSize: 45,
                   ),
                 ),
+                AuthForm(),
               ],
             ),
           ),
