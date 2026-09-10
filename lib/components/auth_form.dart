@@ -11,6 +11,8 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final AuthMode _authMode = AuthMode.login;
+  final passwordContronller = TextEditingController();
+  final Map<String, String> _authData = {'email': '', 'password': ''};
 
   void _submit() {}
   @override
@@ -28,33 +30,80 @@ class _AuthFormState extends State<AuthForm> {
             children: [
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
+                cursorColor: Theme.of(context).colorScheme.secondary,
                 decoration: InputDecoration(
                   labelText: 'E-mail',
                   labelStyle: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                   ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
                 ),
+                onSaved: (email) => _authData['email'] = email ?? '',
+                validator: (eemail) {
+                  final email = eemail ?? '';
+                  if (email.isEmpty) {
+                    return 'Email não deve ter espaço';
+                  }
+                  if (!email.contains('@')) {
+                    return 'Email não contém @';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
+                controller: passwordContronller,
                 keyboardType: TextInputType.text,
+                cursorColor: Theme.of(context).colorScheme.secondary,
                 decoration: InputDecoration(
                   labelText: 'Senha',
                   labelStyle: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                   ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
                 ),
                 obscureText: true,
+                onSaved: (password) => _authData['password'] = password ?? '',
+                validator: (pass) {
+                  final password = pass ?? '';
+                  if (password.isEmpty || password.length < 4) {
+                    return 'Informe uma senha válida!';
+                  }
+                  return null;
+                },
               ),
               if (_authMode == AuthMode.signup)
                 TextFormField(
                   keyboardType: TextInputType.text,
+                  cursorColor: Theme.of(context).colorScheme.secondary,
                   decoration: InputDecoration(
                     labelText: 'Confirmar Senha',
                     labelStyle: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
                   ),
                   obscureText: true,
+                  validator: _authMode == AuthMode.login
+                      ? null
+                      : (pass) {
+                          final password = pass ?? '';
+                          if (password != passwordContronller.text) {
+                            return 'Senhas incompatíveis';
+                          }
+                          return null;
+                        },
                 ),
               SizedBox(height: 20),
               ElevatedButton(
