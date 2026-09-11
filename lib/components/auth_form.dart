@@ -10,11 +10,45 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
-  final AuthMode _authMode = AuthMode.login;
+  AuthMode _authMode = AuthMode.login;
   final passwordContronller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
   final Map<String, String> _authData = {'email': '', 'password': ''};
 
-  void _submit() {}
+  bool _isLogin() {
+    return _authMode == AuthMode.login;
+  }
+
+  bool _isSignup() {
+    return _authMode == AuthMode.signup;
+  }
+
+  void _switchAuthMode() {
+    setState(() {
+      if (_isLogin()) {
+        _authMode = AuthMode.signup;
+      } else {
+        _authMode = AuthMode.login;
+      }
+    });
+  }
+
+  void _submit() {
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) {
+      return;
+    }
+    setState(() => _isLoading = true);
+    _formKey.currentState?.save();
+    if (_isLogin()) {
+      // Login
+    } else {
+      // Registrar
+    }
+    setState(() => _isLoading = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -23,9 +57,10 @@ class _AuthFormState extends State<AuthForm> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(
         padding: const EdgeInsets.all(16),
-        height: 320,
+        height: _isLogin() ? 310 : 420,
         width: deviceSize.width * 0.90,
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               TextFormField(
@@ -49,7 +84,7 @@ class _AuthFormState extends State<AuthForm> {
                     return 'Email não deve ter espaço';
                   }
                   if (!email.contains('@')) {
-                    return 'Email não contém @';
+                    return 'Email deve conter @';
                   }
                   return null;
                 },
@@ -79,7 +114,7 @@ class _AuthFormState extends State<AuthForm> {
                   return null;
                 },
               ),
-              if (_authMode == AuthMode.signup)
+              if (_isSignup())
                 TextFormField(
                   keyboardType: TextInputType.text,
                   cursorColor: Theme.of(context).colorScheme.secondary,
@@ -95,7 +130,7 @@ class _AuthFormState extends State<AuthForm> {
                     ),
                   ),
                   obscureText: true,
-                  validator: _authMode == AuthMode.login
+                  validator: _isLogin()
                       ? null
                       : (pass) {
                           final password = pass ?? '';
@@ -106,16 +141,34 @@ class _AuthFormState extends State<AuthForm> {
                         },
                 ),
               SizedBox(height: 20),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                    Theme.of(context).colorScheme.secondary,
-                  ),
-                ),
-                onPressed: _submit,
+              _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    )
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                          Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                      onPressed: _submit,
+                      child: Text(
+                        _isLogin() ? 'ENTRAR' : 'REGISTRAR',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+              Spacer(),
+              TextButton(
+                onPressed: _switchAuthMode,
                 child: Text(
-                  _authMode == AuthMode.login ? 'ENTARAR' : 'REGISTRAR',
-                  style: TextStyle(color: Colors.white),
+                  _isLogin()
+                      ? 'NÃO TEM UMA CONTA? REGISTRE-SE!'
+                      : 'JÁ TEM UMA CONTA? FAÇA LOGIN!',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
               ),
             ],
