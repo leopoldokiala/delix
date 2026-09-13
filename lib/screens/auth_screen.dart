@@ -18,31 +18,32 @@ class AuthScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: .center,
-              crossAxisAlignment: .center,
-              children: [
-                Icon(Icons.restaurant, size: 45, color: Colors.white),
-                Text(
-                  'Délix',
-                  style: TextStyle(
-                    fontFamily: 'Anton',
-                    color: Colors.white,
-                    fontSize: 45,
+          SingleChildScrollView(
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: .center,
+                crossAxisAlignment: .center,
+                children: [
+                  Icon(Icons.restaurant, size: 45, color: Colors.white),
+                  Text(
+                    'Délix',
+                    style: TextStyle(
+                      fontFamily: 'Anton',
+                      color: Colors.white,
+                      fontSize: 45,
+                    ),
                   ),
-                ),
-                //SizedBox(height: 50), ou
-                Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 70,
-                    vertical: 10,
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 70,
+                      vertical: 10,
+                    ),
                   ),
-                ),
-                AuthForm(),
-              ],
+                  AuthForm(),
+                ],
+              ),
             ),
           ),
         ],
