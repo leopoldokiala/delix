@@ -11,6 +11,7 @@ import 'providers/order_list.dart';
 import 'screens/products_screen.dart';
 import 'screens/product_form_screen.dart';
 import 'screens/auth_screen.dart';
+import './models/auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductList()),
         ChangeNotifierProvider(create: (_) => Cart()),
         ChangeNotifierProvider(create: (_) => OrderList()),
+        ChangeNotifierProvider(create: (_) => Auth()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
