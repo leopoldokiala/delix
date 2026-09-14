@@ -18,33 +18,39 @@ class AuthScreen extends StatelessWidget {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: .center,
-                crossAxisAlignment: .center,
-                children: [
-                  Icon(Icons.restaurant, size: 45, color: Colors.white),
-                  Text(
-                    'Délix',
-                    style: TextStyle(
-                      fontFamily: 'Anton',
-                      color: Colors.white,
-                      fontSize: 45,
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      mainAxisAlignment: .center,
+                      crossAxisAlignment: .center,
+                      children: [
+                        Icon(Icons.restaurant, size: 45, color: Colors.white),
+                        Text(
+                          'Délix',
+                          style: TextStyle(
+                            fontFamily: 'Anton',
+                            color: Colors.white,
+                            fontSize: 45,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 70,
+                            vertical: 10,
+                          ),
+                        ),
+                        AuthForm(),
+                      ],
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 70,
-                      vertical: 10,
-                    ),
-                  ),
-                  AuthForm(),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
         ],
       ),
