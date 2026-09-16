@@ -1,8 +1,8 @@
 import 'package:delix/providers/product_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './screens/home_screen.dart';
 import './screens/cart_screen.dart';
+import 'screens/auth_or_home_screen.dart';
 import 'screens/order_screen.dart';
 import 'screens/product_detail_screen.dart';
 import './utils/app_route.dart';
@@ -52,8 +52,7 @@ class MyApp extends StatelessWidget {
         ),
         home: AuthScreen(),
         routes: {
-          AppRoute.auth: (context) => AuthScreen(),
-          AppRoute.home: (context) => HomeScreen(),
+          AppRoute.authOrHome: (context) => AuthOrHomeScreen(),
           AppRoute.cart: (context) => CartScreen(),
           AppRoute.orders: (context) => OrderScreen(),
           AppRoute.detail: (context) => ProductDetailScreen(),

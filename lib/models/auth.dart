@@ -6,6 +6,19 @@ import '../exceptions/auth_exception.dart';
 
 class Auth with ChangeNotifier {
   static const _key = 'AIzaSyAIR86y8-y3hYRFYn3-KnbpZaplkag2utY';
+  String? _token;
+  String? _email;
+  String? _uid;
+  DateTime? _expiresDate;
+
+  bool get isAuth {
+    final isValid = _expiresDate?.isAfter(DateTime.now()) ?? false;
+    return _token != null && isValid;
+  }
+
+  String? get token => isAuth ? _token : null;
+  String? get email => isAuth ? _email : null;
+  String? get uid => isAuth ? _uid : null;
 
   Future<void> _autenticate(
     String email,
@@ -28,9 +41,15 @@ class Auth with ChangeNotifier {
 
     if (body['error'] != null) {
       throw AuthException(body['error']['message']);
+    } else {
+      _token = body['idToken'];
+      _email = body['email'];
+      _uid = body['localId'];
+      _expiresDate = DateTime.now().add(
+        Duration(seconds: int.parse(body['expiresIn'])),
+      );
+      notifyListeners();
     }
-
-    debugPrint('O tipo de erro: ${body.runtimeType.toString()}');
   }
 
   Future<void> signUp(String email, String password) async {

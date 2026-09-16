@@ -1,3 +1,4 @@
+import 'package:delix/utils/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/auth.dart';
@@ -67,16 +68,24 @@ class _AuthFormState extends State<AuthForm> {
       if (_isLogin()) {
         // Login
         await auth.login(_authData['email']!, _authData['password']!);
+        if (mounted) {
+          Navigator.of(context).pushReplacementNamed(AppRoute.authOrHome);
+        }
       } else {
         // Registrar
         await auth.signUp(_authData['email']!, _authData['password']!);
+        if (mounted) {
+          Navigator.of(context).pushReplacementNamed(AppRoute.authOrHome);
+        }
       }
     } on AuthException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       _showErrorDialog('Ocorreu um erro inesperado!');
     }
-    setState(() => _isLoading = false);
+    if (mounted) {
+      setState(() => _isLoading = false);
+    }
   }
 
   @override
