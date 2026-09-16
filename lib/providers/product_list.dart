@@ -9,25 +9,27 @@ import '../exceptions/http_exception.dart';
 import '../utils/constants.dart';
 
 class ProductList with ChangeNotifier {
-  final List<Product> _items = [];
+  final String _token;
+  final List<Product> _items;
+  ProductList(this._token, this._items);
 
   List<Product> get items {
     return [..._items];
-  }
-
-  int get itemsCount {
-    return _items.length;
   }
 
   List<Product> get favoriteItems {
     return _items.where((prod) => prod.isFavorite).toList();
   }
 
+  int get itemsCount {
+    return _items.length;
+  }
+
   Future<void> loadProducts() async {
     _items.clear();
 
     final response = await http.get(
-      Uri.parse('${Constants.productBaseUrl}.json'),
+      Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'),
     );
 
     if (response.body == 'null') return;
@@ -46,8 +48,8 @@ class ProductList with ChangeNotifier {
           isFavorite: productData['isFavorite'],
         ),
       );
-      notifyListeners();
     });
+    notifyListeners();
   }
 
   Future<void> addProduct(Product product) async {

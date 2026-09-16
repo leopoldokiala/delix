@@ -6,8 +6,9 @@ class AuthException implements Exception {
         'Muitas tentativas, tente novamente mais tarde',
     'EMAIL_NOT_FOUND': 'E-mail não encontrado',
     'INVALID_PASSWORD': 'Senha inválida',
-    'USER_DISABLED': 'Usuário desativado',
+    'USER_DISABLED': 'A conta de usuário foi desativada por um administrador.',
   };
+
   final String key;
 
   AuthException(this.key);
