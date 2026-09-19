@@ -8,7 +8,7 @@ import '../utils/constants.dart';
 
 class OrderList with ChangeNotifier {
   final String _token;
-  final List<Order> _items;
+  List<Order> _items = [];
 
   OrderList(this._token, this._items);
 
@@ -21,7 +21,8 @@ class OrderList with ChangeNotifier {
   }
 
   Future<void> loadOrders() async {
-    _items.clear();
+    // _items.clear();
+    final items = <Order>[];
     final response = await http.get(
       Uri.parse('${Constants.orderBaseUrl}.json?auth=$_token'),
     );
@@ -33,7 +34,7 @@ class OrderList with ChangeNotifier {
       if (orderData['products'] == null) {
         debugPrint('Pedido corrompido: $orderId - $orderData');
       }
-      _items.add(
+      items.add(
         Order(
           id: orderId,
           date: DateTime.parse(orderData['date']),
@@ -50,6 +51,7 @@ class OrderList with ChangeNotifier {
         ),
       );
     });
+    _items = items.reversed.toList();
     notifyListeners();
   }
 

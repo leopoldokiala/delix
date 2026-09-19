@@ -13,6 +13,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,6 +47,7 @@ class _OrderScreenState extends State<OrderScreen> {
             return Consumer<OrderList>(
               builder: (context, orders, child) {
                 return ListView.builder(
+                  itemCount: orders.itemCount,
                   itemBuilder: (context, index) {
                     return OrderComponent(orders.items[index]);
                   },
