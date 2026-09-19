@@ -32,7 +32,15 @@ class ProductList with ChangeNotifier {
       Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'),
     );
 
+    if (response.statusCode >= 400) {
+      throw HttpException(
+        msg: 'Não foi possível carregar os produtos',
+        statusCode: response.statusCode,
+      );
+    }
+
     if (response.body == 'null') return;
+
     Map<String, dynamic> data = jsonDecode(response.body);
     data.forEach((productId, productData) {
       _items.add(
@@ -45,7 +53,6 @@ class ProductList with ChangeNotifier {
           category: Category.values.byName(
             (productData['category'] as String).replaceFirst('Category.', ''),
           ),
-          isFavorite: productData['isFavorite'],
         ),
       );
     });
@@ -61,7 +68,6 @@ class ProductList with ChangeNotifier {
         'price': product.price,
         'imageUrl': product.imageUrl,
         'category': (product.category.name).toString(),
-        'isFavorite': product.isFavorite,
       }),
     );
     final id = jsonDecode(response.body)['name'];
@@ -74,7 +80,6 @@ class ProductList with ChangeNotifier {
         price: product.price,
         imageUrl: product.imageUrl,
         category: product.category,
-        isFavorite: product.isFavorite,
       ),
     );
     notifyListeners();

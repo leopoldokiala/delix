@@ -27,13 +27,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProductList>(context, listen: false).loadProducts().then((
-      value,
-    ) {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    Provider.of<ProductList>(context, listen: false)
+        .loadProducts()
+        .catchError((error) => debugPrint('Erro ao carregar: $error'))
+        .then((value) {
+          if (mounted) {
+            setState(() {
+              _isLoading = false;
+            });
+          }
+        });
+    {}
   }
 
   @override
