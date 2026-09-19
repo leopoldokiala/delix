@@ -1,8 +1,10 @@
-import 'package:delix/utils/currency_formatter.dart';
-
-import '../providers/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../models/auth.dart';
+import '../utils/currency_formatter.dart';
+
+import '../providers/cart.dart';
 import '../models/product.dart';
 import '../utils/app_route.dart';
 
@@ -13,6 +15,7 @@ class ProductGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final Product product = Provider.of<Product>(context, listen: false);
     final Cart cart = Provider.of<Cart>(context, listen: false);
+    final auth = Provider.of<Auth>(listen: false, context);
     return Card(
       child: Column(
         children: [
@@ -50,7 +53,7 @@ class ProductGridItem extends StatelessWidget {
                         ),
                         child: IconButton(
                           onPressed: () {
-                            product.toggleFavorite(product);
+                            product.toggleFavorite(auth.token ?? '');
                           },
                           icon: Consumer<Product>(
                             builder: (context, product, _) => Icon(
