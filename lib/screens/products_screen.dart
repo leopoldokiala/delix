@@ -27,6 +27,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductList>(context, listen: false).loadProducts().then(
+      (value) => setState(() {
+        _isLoading = false;
+      }),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ProductList products = Provider.of(context);
 
@@ -44,7 +54,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
       ),
       drawer: AppDrawer(),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            )
           : RefreshIndicator(
               onRefresh: () => _refreshProducts(context),
               color: Theme.of(context).colorScheme.secondary,
