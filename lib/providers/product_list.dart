@@ -11,7 +11,7 @@ import '../utils/constants.dart';
 class ProductList with ChangeNotifier {
   final String _token;
   final List<Product> _items;
-  ProductList(this._token, this._items);
+  ProductList([this._token = '', this._items = const []]);
 
   List<Product> get items {
     return [..._items];
