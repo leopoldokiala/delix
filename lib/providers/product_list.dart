@@ -56,7 +56,7 @@ class ProductList with ChangeNotifier {
 
     Map<String, dynamic> data = jsonDecode(response.body);
     data.forEach((productId, productData) {
-      bool isFavorite = favoriteData[productId] ?? false;
+      final isFavorite = favoriteData[productId] ?? false;
       _items.add(
         Product(
           id: productId,
@@ -85,6 +85,16 @@ class ProductList with ChangeNotifier {
         'category': (product.category.name).toString(),
       }),
     );
+
+    if (response.statusCode >= 400) {
+      _items.add(product);
+      notifyListeners();
+      throw HttpException(
+        msg: 'Não foi possível Adicionar o Produto',
+        statusCode: response.statusCode,
+      );
+    }
+
     final id = jsonDecode(response.body)['name'];
 
     _items.add(
@@ -120,22 +130,29 @@ class ProductList with ChangeNotifier {
   Future<void> updateProduct(Product product) async {
     int index = _items.indexWhere((p) => p.id == product.id);
 
-    if (index >= 0) {
-      await http.patch(
-        Uri.parse(
-          '${Constants.productBaseUrl}/${product.id}.json?auth=$_token',
-        ),
-        body: jsonEncode({
-          'name': product.name,
-          'description': product.description,
-          'price': product.price,
-          'imageUrl': product.imageUrl,
-          'category': (product.category.name).toString(),
-        }),
+    if (index < 0) return;
+
+    final response = await http.patch(
+      Uri.parse('${Constants.productBaseUrl}/${product.id}.json?auth=$_token'),
+      body: jsonEncode({
+        'name': product.name,
+        'description': product.description,
+        'price': product.price,
+        'imageUrl': product.imageUrl,
+        'category': product.category.name,
+      }),
+    );
+
+    if (response.statusCode >= 400) {
+      throw HttpException(
+        msg: 'Não foi possível Atualizar o Produto',
+        statusCode: response.statusCode,
       );
     }
 
-    return Future.value();
+    product.isFavorite = _items[index].isFavorite;
+    _items[index] = product;
+    notifyListeners();
   }
 
   Future<void> removeProduct(Product product) async {

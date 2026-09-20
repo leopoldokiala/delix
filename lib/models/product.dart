@@ -33,7 +33,7 @@ class Product extends ChangeNotifier {
       _toggleFavorite();
       final response = await http.put(
         Uri.parse('${Constants.userFavoritesUrl}/$userId/$id.json?auth=$token'),
-        body: jsonEncode({'isFavorite': isFavorite}),
+        body: jsonEncode(isFavorite),
       );
 
       if (response.statusCode >= 400) {

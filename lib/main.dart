@@ -11,7 +11,7 @@ import 'providers/order_list.dart';
 import 'screens/products_screen.dart';
 import 'screens/product_form_screen.dart';
 import 'screens/auth_screen.dart';
-import './models/auth.dart';
+import 'providers/auth.dart';
 
 void main() {
   runApp(MyApp());

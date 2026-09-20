@@ -1,7 +1,7 @@
 import 'package:delix/utils/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/auth.dart';
+import '../providers/auth.dart';
 import '../exceptions/auth_exception.dart';
 
 enum AuthMode { signup, login }
