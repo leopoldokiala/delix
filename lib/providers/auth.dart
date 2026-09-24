@@ -81,7 +81,7 @@ class Auth with ChangeNotifier {
   void _autoLogout() {
     _clearLogoutTimer();
     final timeToLogout = _expiresDate?.difference(DateTime.now()).inSeconds;
-    debugPrint('Tempo do Token: $timeToLogout');
+    //debugPrint('Tempo do Token: $timeToLogout');
     _logoutTimer = Timer(Duration(seconds: timeToLogout ?? 0), logout);
   }
 }
