@@ -6,49 +6,52 @@ import '../providers/auth.dart';
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
-  Future<void> _confirmLogOut(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text(
-            'Tem a certeza que quer sair?',
-            style: TextStyle(fontSize: 18),
-          ),
-          title: Text('Sair'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Provider.of<Auth>(context, listen: false).logout();
-                Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed(AppRoute.authOrHome);
-              },
-              child: Text(
-                'Sim',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Não',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    Auth auth = Provider.of<Auth>(context, listen: false);
+    Future<void> confirmLogOut() {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(
+              'Tem a certeza que quer sair?',
+              style: TextStyle(fontSize: 18),
+            ),
+            title: Text('Sair'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  auth.logout();
+                  Navigator.of(context).pop();
+                  Navigator.of(
+                    context,
+                  ).pushReplacementNamed(AppRoute.authOrHome);
+                },
+                child: Text(
+                  'Sim',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Não',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Drawer(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -67,7 +70,10 @@ class AppDrawer extends StatelessWidget {
               'Leopoldo Kiala',
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
-            Text('leopoldo@gmail.com', style: TextStyle(fontSize: 16)),
+            Text(
+              auth.isAuth ? auth.email.toString() : 'Email',
+              style: TextStyle(fontSize: 16),
+            ),
             Divider(),
             ListTile(
               onTap: () {
@@ -104,7 +110,7 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              onTap: () => _confirmLogOut(context),
+              onTap: () => confirmLogOut(),
               leading: Icon(
                 Icons.exit_to_app,
                 color: Theme.of(context).colorScheme.secondary,
