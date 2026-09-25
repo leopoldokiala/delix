@@ -38,7 +38,6 @@ class Auth with ChangeNotifier {
         'returnSecureToken': true,
       }),
     );
-    debugPrint('Resposta: ${response.body}');
 
     final body = jsonDecode(response.body);
 
@@ -52,12 +51,17 @@ class Auth with ChangeNotifier {
         Duration(seconds: int.parse(body['expiresIn'])),
       );
 
-      Store.saveMap('userData', {
-        'token': _token,
-        'email': _email,
-        'userId': _userId,
-        'expiresDate': _expiresDate!.toIso8601String(),
-      });
+      try {
+        await Store.saveMap('userData', {
+          'token': _token,
+          'email': _email,
+          'userId': _userId,
+          'expiresDate': _expiresDate!.toIso8601String(),
+        });
+        debugPrint('Sessão salva com sucesso');
+      } catch (e) {
+        debugPrint('ERRO ao salvar sessão: $e');
+      }
 
       _autoLogout();
       notifyListeners();
@@ -78,16 +82,20 @@ class Auth with ChangeNotifier {
     final userData = await Store.getMap('userData');
     if (userData.isEmpty) return;
 
-    final expiredata = DateTime.parse(userData['expireDate']);
-    if (expiredata.isBefore(DateTime.now())) return;
+    try {
+      final expiresDate = DateTime.parse(userData['expiresDate']);
+      if (expiresDate.isBefore(DateTime.now())) return;
 
-    _token = userData['token'];
-    _email = userData['email'];
-    _userId = userData['userId'];
-    _expiresDate = expiredata;
+      _token = userData['token'];
+      _email = userData['email'];
+      _userId = userData['userId'];
+      _expiresDate = expiresDate;
 
-    _autoLogout();
-    notifyListeners();
+      _autoLogout();
+      notifyListeners();
+    } catch (_) {
+      return;
+    }
   }
 
   void logout() {
@@ -96,7 +104,9 @@ class Auth with ChangeNotifier {
     _userId = null;
     _expiresDate = null;
     _clearLogoutTimer();
-    notifyListeners();
+    Store.remove('userData').then((_) {
+      notifyListeners();
+    });
   }
 
   void _clearLogoutTimer() {
