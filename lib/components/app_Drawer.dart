@@ -6,6 +6,47 @@ import '../providers/auth.dart';
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
+  Future<void> _confirmLogOut(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(
+            'Tem a certeza que quer sair?',
+            style: TextStyle(fontSize: 18),
+          ),
+          title: Text('Sair'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Provider.of<Auth>(context, listen: false).logout();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed(AppRoute.authOrHome);
+              },
+              child: Text(
+                'Sim',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Não',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -32,7 +73,10 @@ class AppDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pushReplacementNamed(AppRoute.authOrHome);
               },
-              leading: Icon(Icons.shop),
+              leading: Icon(
+                Icons.shop,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               title: Text('Loja', style: TextStyle(fontSize: 18)),
             ),
 
@@ -41,7 +85,10 @@ class AppDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pushReplacementNamed(AppRoute.orders);
               },
-              leading: Icon(Icons.list),
+              leading: Icon(
+                Icons.list,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               title: Text('Pedidos', style: TextStyle(fontSize: 18)),
             ),
             Divider(),
@@ -49,16 +96,19 @@ class AppDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pushReplacementNamed(AppRoute.products);
               },
-              leading: Icon(Icons.edit),
+              leading: Icon(
+                Icons.edit,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               title: Text('Gerenciar Produtos', style: TextStyle(fontSize: 18)),
             ),
             Divider(),
             ListTile(
-              onTap: () {
-                Provider.of<Auth>(context, listen: false).logout();
-                Navigator.of(context).pushReplacementNamed(AppRoute.authOrHome);
-              },
-              leading: Icon(Icons.exit_to_app),
+              onTap: () => _confirmLogOut(context),
+              leading: Icon(
+                Icons.exit_to_app,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               title: Text('Sair', style: TextStyle(fontSize: 18)),
             ),
           ],
