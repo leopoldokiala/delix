@@ -22,6 +22,7 @@ class _AuthFormState extends State<AuthForm>
   final Map<String, String> _authData = {'email': '', 'password': ''};
   AnimationController? _controller;
   Animation<double>? _opacityAnimation;
+  Animation<Offset>? _slideAnimation;
 
   @override
   void initState() {
@@ -35,6 +36,11 @@ class _AuthFormState extends State<AuthForm>
       begin: 0.0,
       end: 1.0,
     ).animate(CurvedAnimation(parent: _controller!, curve: Curves.linear));
+
+    _slideAnimation = Tween<Offset>(
+      begin: Offset(0, -1.5),
+      end: Offset(0, 0),
+    ).animate(CurvedAnimation(parent: _controller!, curve: Curves.linear));
   }
 
   @override
@@ -47,9 +53,11 @@ class _AuthFormState extends State<AuthForm>
     return _authMode == AuthMode.login;
   }
 
+  /*
   bool _isSignup() {
     return _authMode == AuthMode.signup;
   }
+  */
 
   void _switchAuthMode() {
     setState(() {
@@ -121,7 +129,7 @@ class _AuthFormState extends State<AuthForm>
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: AnimatedContainer(
         duration: Duration(milliseconds: 350),
-        curve: Curves.bounceOut,
+        curve: Curves.easeInCirc,
         padding: EdgeInsets.all(8),
         // margin: EdgeInsets.all(8),
         height: _isLogin() ? 330 : 420,
@@ -191,30 +199,33 @@ class _AuthFormState extends State<AuthForm>
                 curve: Curves.linear,
                 child: FadeTransition(
                   opacity: _opacityAnimation!,
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    cursorColor: Theme.of(context).colorScheme.secondary,
-                    decoration: InputDecoration(
-                      labelText: 'Confirmar Senha',
-                      labelStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
+                  child: SlideTransition(
+                    position: _slideAnimation!,
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      cursorColor: Theme.of(context).colorScheme.secondary,
+                      decoration: InputDecoration(
+                        labelText: 'Confirmar Senha',
+                        labelStyle: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                         ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
                       ),
+                      obscureText: true,
+                      validator: _isLogin()
+                          ? null
+                          : (pass) {
+                              final password = pass ?? '';
+                              if (password != passwordContronller.text) {
+                                return 'Senhas incompatíveis';
+                              }
+                              return null;
+                            },
                     ),
-                    obscureText: true,
-                    validator: _isLogin()
-                        ? null
-                        : (pass) {
-                            final password = pass ?? '';
-                            if (password != passwordContronller.text) {
-                              return 'Senhas incompatíveis';
-                            }
-                            return null;
-                          },
                   ),
                 ),
               ),
