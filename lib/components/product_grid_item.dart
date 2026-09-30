@@ -36,9 +36,19 @@ class ProductGridItem extends StatelessWidget {
                             context,
                           ).pushNamed(AppRoute.detail, arguments: product);
                         },
-                        child: Image.network(
+                        /*child: Image.network(
                           product.imageUrl,
                           fit: BoxFit.cover,
+                        ),*/
+                        child: Hero(
+                          tag: product.id,
+                          child: FadeInImage(
+                            placeholder: AssetImage(
+                              'assets/images/delix_placeholder.png',
+                            ),
+                            image: NetworkImage(product.imageUrl),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
