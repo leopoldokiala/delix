@@ -63,7 +63,7 @@ class AppDrawer extends StatelessWidget {
               child: CircleAvatar(
                 maxRadius: 60,
                 //backgroundColor: Theme.of(context).colorScheme.secondary,
-                backgroundImage: AssetImage('assets/leo.jpg'),
+                backgroundImage: AssetImage('assets/images/leo.jpg'),
               ),
             ),
             Text(
