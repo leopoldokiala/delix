@@ -13,12 +13,38 @@ class AuthForm extends StatefulWidget {
   State<AuthForm> createState() => _AuthFormState();
 }
 
-class _AuthFormState extends State<AuthForm> {
+class _AuthFormState extends State<AuthForm>
+    with SingleTickerProviderStateMixin {
   AuthMode _authMode = AuthMode.login;
   final passwordContronller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   final Map<String, String> _authData = {'email': '', 'password': ''};
+  AnimationController? _controller;
+  Animation<Size>? _heightAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+    );
+
+    _heightAnimation = Tween(
+      begin: Size(double.infinity, 330),
+      end: Size(double.infinity, 420),
+    ).animate(CurvedAnimation(parent: _controller!, curve: Curves.linear));
+
+    _heightAnimation?.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller?.dispose();
+    // _heightAnimation!.dispose();
+  }
 
   bool _isLogin() {
     return _authMode == AuthMode.login;
@@ -32,8 +58,10 @@ class _AuthFormState extends State<AuthForm> {
     setState(() {
       if (_isLogin()) {
         _authMode = AuthMode.signup;
+        _controller?.forward();
       } else {
         _authMode = AuthMode.login;
+        _controller?.reverse();
       }
     });
   }
@@ -97,6 +125,7 @@ class _AuthFormState extends State<AuthForm> {
       child: Container(
         padding: const EdgeInsets.all(16),
         // height: _isLogin() ? 310 : 410,
+        height: _heightAnimation?.value.height ?? (_isLogin() ? 330 : 420),
         width: deviceSize.width * 0.90,
         child: Form(
           key: _formKey,
@@ -199,14 +228,16 @@ class _AuthFormState extends State<AuthForm> {
                       ),
                     ),
               SizedBox(height: 12),
-              TextButton(
-                onPressed: _switchAuthMode,
-                child: Text(
-                  _isLogin()
-                      ? 'NÃO TEM UMA CONTA? REGISTRE-SE!'
-                      : 'JÁ TEM UMA CONTA? FAÇA LOGIN!',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
+              Flexible(
+                child: TextButton(
+                  onPressed: _switchAuthMode,
+                  child: Text(
+                    _isLogin()
+                        ? 'NÃO TEM UMA CONTA? REGISTRE-SE!'
+                        : 'JÁ TEM UMA CONTA? FAÇA LOGIN!',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                   ),
                 ),
               ),
