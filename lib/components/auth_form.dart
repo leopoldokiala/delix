@@ -21,7 +21,7 @@ class _AuthFormState extends State<AuthForm>
   bool _isLoading = false;
   final Map<String, String> _authData = {'email': '', 'password': ''};
   AnimationController? _controller;
-  Animation<Size>? _heightAnimation;
+  Animation<double>? _opacityAnimation;
 
   @override
   void initState() {
@@ -31,9 +31,9 @@ class _AuthFormState extends State<AuthForm>
       duration: Duration(milliseconds: 400),
     );
 
-    _heightAnimation = Tween(
-      begin: Size(double.infinity, 330),
-      end: Size(double.infinity, 420),
+    _opacityAnimation = Tween(
+      begin: 0.0,
+      end: 1.0,
     ).animate(CurvedAnimation(parent: _controller!, curve: Curves.linear));
   }
 
@@ -119,17 +119,13 @@ class _AuthFormState extends State<AuthForm>
     return Card(
       elevation: 8,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: AnimatedBuilder(
-        animation: _heightAnimation!,
-        builder: (context, childForm) {
-          return Container(
-            padding: const EdgeInsets.all(16),
-            // height: _isLogin() ? 310 : 410,
-            height: _heightAnimation?.value.height ?? (_isLogin() ? 330 : 420),
-            width: deviceSize.width * 0.90,
-            child: childForm,
-          );
-        },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 350),
+        curve: Curves.bounceOut,
+        padding: EdgeInsets.all(8),
+        // margin: EdgeInsets.all(8),
+        height: _isLogin() ? 330 : 420,
+        width: deviceSize.width * 0.90,
         child: Form(
           key: _formKey,
           child: Column(
@@ -185,32 +181,43 @@ class _AuthFormState extends State<AuthForm>
                   return null;
                 },
               ),
-              if (_isSignup())
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  cursorColor: Theme.of(context).colorScheme.secondary,
-                  decoration: InputDecoration(
-                    labelText: 'Confirmar Senha',
-                    labelStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
+              //if (_isSignup())
+              AnimatedContainer(
+                constraints: BoxConstraints(
+                  minHeight: _isLogin() ? 0 : 60,
+                  maxHeight: _isLogin() ? 0 : 120,
+                ),
+                duration: Duration(milliseconds: 300),
+                curve: Curves.linear,
+                child: FadeTransition(
+                  opacity: _opacityAnimation!,
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    cursorColor: Theme.of(context).colorScheme.secondary,
+                    decoration: InputDecoration(
+                      labelText: 'Confirmar Senha',
+                      labelStyle: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                       ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
                     ),
+                    obscureText: true,
+                    validator: _isLogin()
+                        ? null
+                        : (pass) {
+                            final password = pass ?? '';
+                            if (password != passwordContronller.text) {
+                              return 'Senhas incompatíveis';
+                            }
+                            return null;
+                          },
                   ),
-                  obscureText: true,
-                  validator: _isLogin()
-                      ? null
-                      : (pass) {
-                          final password = pass ?? '';
-                          if (password != passwordContronller.text) {
-                            return 'Senhas incompatíveis';
-                          }
-                          return null;
-                        },
                 ),
+              ),
               SizedBox(height: 20),
               _isLoading
                   ? Center(
