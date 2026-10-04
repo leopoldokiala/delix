@@ -1,6 +1,6 @@
 {
-    "name": "cardapio_online",
-    "short_name": "cardapio_online",
+    "name": "delix",
+    "short_name": "delix",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
