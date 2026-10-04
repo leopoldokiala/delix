@@ -66,7 +66,6 @@ class _OrderComponentState extends State<OrderComponent> {
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                 height: itemsHeihgt,
                 width: double.infinity,
-
                 child: ListView(
                   children: widget.order.products.map((product) {
                     return Row(
