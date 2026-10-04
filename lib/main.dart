@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Délix',
         theme: ThemeData(
           appBarTheme: AppBarTheme(
             iconTheme: IconThemeData(color: Color(0xffb21029)),

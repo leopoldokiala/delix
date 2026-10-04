@@ -87,8 +87,6 @@ class ProductList with ChangeNotifier {
     );
 
     if (response.statusCode >= 400) {
-      _items.add(product);
-      notifyListeners();
       throw HttpException(
         msg: 'Não foi possível Adicionar o Produto',
         statusCode: response.statusCode,
